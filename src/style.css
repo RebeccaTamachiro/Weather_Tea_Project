@@ -1,0 +1,108 @@
+body {
+  margin: 20px;
+}
+
+h1 {
+  color: #56d5c2;
+  margin-top: 15px;
+}
+
+.app-title {
+  border-left: #56d5c2 solid 2pt;
+}
+
+#main-card {
+  border: 2pt solid #56d5c2;
+  border-radius: 4px;
+  background-color: #dbf1f1;
+  font-family: ubuntu;
+}
+
+h2 {
+  font-size: 24px;
+  color: #3a403d;
+}
+
+h3,
+.parameters,
+.forecast {
+  font-size: 16px;
+  color: #3a403d;
+}
+
+h3,
+.forecast {
+  font-weight: bold;
+}
+
+#fahrenheit-tab,
+#celsius-tab {
+  border-top: 2pt solid #56d5c2;
+  border-left: 2pt solid #56d5c2;
+  border-radius: 4px;
+  padding: 4px 3px;
+  background-color: #dbf1f1;
+}
+
+#fahrenheit-tab:hover,
+#celsius-tab:hover {
+  background-color: #56d5c2;
+  transition: ease-in-out 200ms;
+}
+
+#fahrenheit,
+#celsius {
+  margin-left: 10px;
+}
+
+.location {
+  text-transform: uppercase;
+}
+
+.temperature {
+  font-size: 40px;
+  color: #3a403d;
+}
+
+#tea-tip {
+  border: 1px solid #608686;
+  border-radius: 4px;
+  color: #608686;
+}
+
+#tea-flavour {
+  font-weight: bold;
+}
+
+#back,
+#celsius,
+#fahrenheit {
+  color: #608686;
+}
+
+#main-icon {
+  margin-top: 20px;
+  font-size: 60px;
+  color: #93e4f9;
+}
+
+.fa-cloud,
+.fa-sun,
+.fa-cloud-showers-heavy {
+  font-size: 30px;
+  color: #93e4f9;
+  text-shadow: 2px 2px 3px #c8c8c8;
+}
+
+.card-header,
+.card-footer {
+  color: #3a403d;
+}
+
+#city-search {
+  border: 1px solid #608686;
+}
+
+#button-addon2 {
+  background-color: #ffb6b6;
+}
