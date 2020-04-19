@@ -55,8 +55,12 @@ h3,
 }
 
 #back,
-#celsius,
-#fahrenheit {
+.credits {
+  color: #608686;
+}
+
+.credits-link {
+  text-decoration: underline;
   color: #608686;
 }
 
