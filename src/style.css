@@ -35,26 +35,6 @@ h3,
   font-weight: bold;
 }
 
-#fahrenheit-tab,
-#celsius-tab {
-  border-top: 2pt solid #56d5c2;
-  border-left: 2pt solid #56d5c2;
-  border-radius: 4px;
-  padding: 4px 3px;
-  background-color: #dbf1f1;
-}
-
-#fahrenheit-tab:hover,
-#celsius-tab:hover {
-  background-color: #56d5c2;
-  transition: ease-in-out 200ms;
-}
-
-#fahrenheit,
-#celsius {
-  margin-left: 10px;
-}
-
 .location {
   text-transform: uppercase;
 }

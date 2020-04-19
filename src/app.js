@@ -57,22 +57,6 @@ function backToPosition(event) {
   navigator.geolocation.getCurrentPosition(displayGeoTemperature);
 }
 
-function chooseCelsius(event) {
-  event.preventDefault();
-  let celsiusTemp = document.querySelector("#main-temp");
-  celsiusTemp.innerHTML = `18ºC`;
-  let celsiusForecast01 = document.querySelector("#temp-forecast-01");
-  celsiusForecast01.innerHTML = `19º|10º`;
-}
-
-function chooseFahrenheit(event) {
-  event.preventDefault();
-  let fahrenheitTemp = document.querySelector("#main-temp");
-  fahrenheitTemp.innerHTML = `80ºF`;
-  let fahrenheitForecast01 = document.querySelector("#temp-forecast-01");
-  fahrenheitForecast01.innerHTML = `68º|59º`;
-}
-
 let search = document.querySelector("#city-search-form");
 search.addEventListener("submit", changeCity);
 
@@ -91,12 +75,6 @@ let days = [
 
 displayDate();
 showDefaultTemperature("Lisbon");
-
-let celsiusTab = document.querySelector("#celsius");
-celsiusTab.addEventListener("click", chooseCelsius);
-
-let fahrenheitTab = document.querySelector("#fahrenheit");
-fahrenheitTab.addEventListener("click", chooseFahrenheit);
 
 let linkToCurrent = document.querySelector("#back-link");
 linkToCurrent.addEventListener("click", backToPosition);
