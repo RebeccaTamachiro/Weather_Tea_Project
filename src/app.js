@@ -8,6 +8,15 @@ function displayGeoTemperature(position) {
 
 function displayDate() {
   let now = new Date();
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
   let currentWeekday = document.querySelector("#weekday");
   currentWeekday.innerHTML = `${days[now.getDay()]}`;
   let currentHours = document.querySelector("#hours");
@@ -62,16 +71,6 @@ search.addEventListener("submit", changeCity);
 
 let searchButton = document.querySelector("#button-addon2");
 searchButton.addEventListener("click", changeCity);
-
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
 
 displayDate();
 showDefaultTemperature("Lisbon");
