@@ -8,15 +8,7 @@ function displayGeoTemperature(position) {
 
 function displayDate() {
   let now = new Date();
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
+
   let currentWeekday = document.querySelector("#weekday");
   currentWeekday.innerHTML = `${days[now.getDay()]}`;
   let currentHours = document.querySelector("#hours");
@@ -33,13 +25,11 @@ function displayDate() {
 
 function changeCity(event) {
   event.preventDefault();
+  window.scroll(0, 0);
   let newCity = document.querySelector("#city-search").value;
   let apiKey = "461572920dce0becb1819d70275340e2";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${newCity}&units=metric`;
   axios.get(`${apiUrl}&appid=${apiKey}`).then(showNewTemperature);
-  let newDayTime = document.querySelector("#location-day-time");
-  newDayTime.innerHTML = `Somewhere in time
-  `;
 }
 
 function showNewTemperature(response) {
@@ -65,6 +55,16 @@ function backToPosition(event) {
   event.preventDefault;
   navigator.geolocation.getCurrentPosition(displayGeoTemperature);
 }
+
+let days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 
 let search = document.querySelector("#city-search-form");
 search.addEventListener("submit", changeCity);
