@@ -23,6 +23,10 @@ h2 {
   color: #3a403d;
 }
 
+#weather-description:first-letter {
+  text-transform: capitalize;
+}
+
 h3,
 .parameters,
 .forecast {

@@ -25,7 +25,7 @@ function displayDate() {
 
 function changeCity(event) {
   event.preventDefault();
-  window.scroll(0, 0);
+  window.scroll(0, 80);
   let newCity = document.querySelector("#city-search").value;
   let apiKey = "461572920dce0becb1819d70275340e2";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${newCity}&units=metric`;
@@ -38,12 +38,37 @@ function showNewTemperature(response) {
   newMainTemperature.innerHTML = `${newCityTemperature}ºC`;
   let newLocation = document.querySelector("#current-location");
   newLocation.innerHTML = response.data.name;
-  let newDescription = response.data.weather[0].main;
+  let newDescription = response.data.weather[0].description;
   document.querySelector("#weather-description").innerHTML = newDescription;
   let newWind = Math.round(response.data.wind.speed * 3.6);
   document.querySelector("#wind-value").innerHTML = newWind;
   let newHumidity = response.data.main.humidity;
   document.querySelector("#humidity-value").innerHTML = newHumidity;
+  let iconSelector = response.data.weather[0].main;
+  if (iconSelector === "Clouds") {
+    document
+      .querySelector("#main-icon")
+      .setAttribute("class", "fas fa-cloud mt-4 ml-3");
+  }
+  if (iconSelector === "Clear") {
+    document
+      .querySelector("#main-icon")
+      .setAttribute("class", "fas fa-sun mt-4 ml-3");
+  }
+  if (iconSelector === "Rain") {
+    document
+      .querySelector("#main-icon")
+      .setAttribute("class", "fas fa-cloud-showers-heavy mt-4 ml-3");
+  }
+  if (iconSelector === "Snow") {
+    document
+      .querySelector("#main-icon")
+      .setAttribute("class", "fas fa-snowflake mt-4 ml-3");
+  }
+  if (iconSelector === "Haze" || iconSelector === "Mist")
+    document
+      .querySelector("#main-icon")
+      .setAttribute("class", "fas fa-smog mt-4 ml-3");
 }
 
 function showDefaultTemperature(city) {
