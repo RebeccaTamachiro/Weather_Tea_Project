@@ -29,32 +29,31 @@
           <h1>Weather Tea</h1>
         </div>
       </div>
-      <div class="row mt-4" style="max-width: 35rem;">
+      <div class="main-card-wrapper row mt-4" style="max-width: 35rem;">
         <div
           class="main-card mt-0 mb-1 p-3"
           style="max-width: 35rem;"
           id="main-card"
         >
+          <h2 class="mb-0">
+            Now in
+            <span class="location" id="current-location">Lisbon</span>:
+          </h2>
           <div class="row">
             <div class="main info col" style="min-width: 12rem;">
-              <h2 class="mb-1">
-                Now in
-                <span class="location" id="current-location">Lisbon</span>:
-              </h2>
-
               <div class="row">
                 <div class="main-text col-5">
                   <p class="temperature mt-4 mb-0" id="main-temp">
                     15ºC
                   </p>
-
-                  <h3 id="weather-description"></h3>
                 </div>
+
                 <div class="main-icon col-7">
-                  <i class="fas fa-cloud mt-4 ml-3" id="main-icon"></i>
+                  <i class="fas fa-cloud" id="main-icon"></i>
                 </div>
               </div>
-              <p class="parameters mt-0">
+              <h3 id="weather-description" class="mt-2"></h3>
+              <p class="parameters mt-4 mb-0">
                 Wind: <span id="wind-value"> </span>km/h
                 <br />
                 Humidity: <span id="humidity-value"> </span>%
@@ -87,7 +86,7 @@
                   <div class="input-group-append">
                     <button
                       class="btn btn-outline-danger"
-                      type="button"
+                      type="submit"
                       id="button-addon2"
                     >
                       Search

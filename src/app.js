@@ -1,11 +1,3 @@
-function displayGeoTemperature(position) {
-  let latitude = position.coords.latitude;
-  let longitude = position.coords.longitude;
-  let apiKey = "461572920dce0becb1819d70275340e2";
-  let mainApi = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric`;
-  axios.get(`${mainApi}&appid=${apiKey}`).then(showNewTemperature);
-}
-
 function displayDate() {
   let now = new Date();
 
@@ -23,13 +15,17 @@ function displayDate() {
   currentHours.innerHTML = `${hours}:${minutes}`;
 }
 
-function changeCity(event) {
+function search(apiVariable) {
+  let apiKey = "461572920dce0becb1819d70275340e2";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?${apiVariable}&units=metric`;
+  axios.get(`${apiUrl}&appid=${apiKey}`).then(showNewTemperature);
+}
+
+function handleCityInput(event) {
   event.preventDefault();
   window.scroll(0, 80);
-  let newCity = document.querySelector("#city-search").value;
-  let apiKey = "461572920dce0becb1819d70275340e2";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${newCity}&units=metric`;
-  axios.get(`${apiUrl}&appid=${apiKey}`).then(showNewTemperature);
+  let apiVariable = `q=${document.querySelector("#city-search").value}`;
+  search(apiVariable);
 }
 
 function showNewTemperature(response) {
@@ -71,14 +67,16 @@ function showNewTemperature(response) {
       .setAttribute("class", "fas fa-smog mt-4 ml-3");
 }
 
-function showDefaultTemperature(city) {
-  let apiKey = "461572920dce0becb1819d70275340e2";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric`;
-  axios.get(`${apiUrl}&appid=${apiKey}`).then(showNewTemperature);
-}
 function backToPosition(event) {
   event.preventDefault;
   navigator.geolocation.getCurrentPosition(displayGeoTemperature);
+}
+
+function displayGeoTemperature(position) {
+  let latitude = position.coords.latitude;
+  let longitude = position.coords.longitude;
+  let apiVariable = `lat=${latitude}&lon=${longitude}`;
+  search(apiVariable);
 }
 
 let days = [
@@ -91,14 +89,11 @@ let days = [
   "Saturday",
 ];
 
-let search = document.querySelector("#city-search-form");
-search.addEventListener("submit", changeCity);
-
-let searchButton = document.querySelector("#button-addon2");
-searchButton.addEventListener("click", changeCity);
+let changeCityForm = document.querySelector("#city-search-form");
+changeCityForm.addEventListener("submit", handleCityInput);
 
 displayDate();
-showDefaultTemperature("Lisbon");
+search("q=Lisbon");
 
 let linkToCurrent = document.querySelector("#back-link");
 linkToCurrent.addEventListener("click", backToPosition);
