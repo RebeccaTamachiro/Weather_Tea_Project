@@ -15,12 +15,6 @@ function displayDate() {
   currentHours.innerHTML = `${hours}:${minutes}`;
 }
 
-function search(apiVariable) {
-  let apiKey = "461572920dce0becb1819d70275340e2";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?${apiVariable}&units=metric`;
-  axios.get(`${apiUrl}&appid=${apiKey}`).then(showNewTemperature);
-}
-
 function handleCityInput(event) {
   event.preventDefault();
   window.scroll(0, 80);
@@ -28,18 +22,30 @@ function handleCityInput(event) {
   search(apiVariable);
 }
 
+function search(apiVariable) {
+  let apiKey = "461572920dce0becb1819d70275340e2";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?${apiVariable}&units=metric`;
+  axios.get(`${apiUrl}&appid=${apiKey}`).then(showNewTemperature);
+
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?${apiVariable}&units=metric`;
+  axios.get(`${apiUrl}&appid=${apiKey}`).then(showForecast);
+}
+
 function showNewTemperature(response) {
   let newCityTemperature = Math.round(response.data.main.temp);
-  let newMainTemperature = document.querySelector("#main-temp");
-  newMainTemperature.innerHTML = `${newCityTemperature}ºC`;
-  let newLocation = document.querySelector("#current-location");
-  newLocation.innerHTML = response.data.name;
   let newDescription = response.data.weather[0].description;
-  document.querySelector("#weather-description").innerHTML = newDescription;
   let newWind = Math.round(response.data.wind.speed * 3.6);
-  document.querySelector("#wind-value").innerHTML = newWind;
   let newHumidity = response.data.main.humidity;
+
+  let newMainTemperature = document.querySelector("#main-temp");
+  let newLocation = document.querySelector("#current-location");
+
+  newMainTemperature.innerHTML = `${newCityTemperature}ºC`;
+  newLocation.innerHTML = response.data.name;
+  document.querySelector("#weather-description").innerHTML = newDescription;
+  document.querySelector("#wind-value").innerHTML = newWind;
   document.querySelector("#humidity-value").innerHTML = newHumidity;
+
   let iconSelector = response.data.weather[0].main;
   if (iconSelector === "Clouds") {
     document
@@ -61,15 +67,59 @@ function showNewTemperature(response) {
       .querySelector("#main-icon")
       .setAttribute("class", "fas fa-snowflake mt-4 ml-3");
   }
-  if (iconSelector === "Haze" || iconSelector === "Mist")
+  if (
+    iconSelector === "Haze" ||
+    iconSelector === "Mist" ||
+    iconSelector === "Fog"
+  )
     document
       .querySelector("#main-icon")
       .setAttribute("class", "fas fa-smog mt-4 ml-3");
 }
 
+function formatForecastHours(timestamp) {
+  let forecastReference = new Date(timestamp);
+  let hours = forecastReference.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = forecastReference.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+
+    return `${hours}:${minutes}`;
+  }
+}
+function showForecast(response) {
+  let forecastElement = document.querySelector("#forecast-section");
+  forecastElement.innerHTML = null;
+  let forecast = null;
+
+  for (let index = 0; index < 5; index++) {
+    forecast = response.data.list[index];
+
+    forecastElement.innerHTML += `
+  <div class="card border-0 bg-transparent" style="min-width: 6rem;">
+              <div class="card-header bg-transparent text-center border-0">
+                ${formatForecastHours(forecast.dt * 1000)}
+              </div>
+
+              <div
+                class="card-footer bg-transparent text-center border-0"
+                id="temp-forecast-01"
+              >
+                ${Math.round(forecast.main.temp_max)}º|${Math.round(
+      forecast.main.temp_min
+    )}º
+              </div>
+            </div>`;
+  }
+}
+
 function backToPosition(event) {
   event.preventDefault;
   navigator.geolocation.getCurrentPosition(displayGeoTemperature);
+  window.scroll(0, 80);
 }
 
 function displayGeoTemperature(position) {

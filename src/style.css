@@ -44,8 +44,9 @@ h3,
 }
 
 .temperature {
-  font-size: 40px;
+  font-size: 45px;
   color: #3a403d;
+  padding-top: 10px;
 }
 
 #tea-tip {
