@@ -49,6 +49,7 @@ function handleCityInput(event) {
   window.scroll(0, 80);
   let apiVariable = `q=${document.querySelector("#city-search").value}`;
   search(apiVariable);
+  document.querySelector("#city-search").value = null;
 }
 
 function search(apiVariable) {
@@ -80,43 +81,52 @@ function showNewTemperature(response) {
   let iconSelector = response.data.weather[0].main;
   document.querySelector(
     "#main-icon-wrapper"
-  ).innerHTML = `<i class="${displayIcon(iconSelector)}" id="main-icon"> </i>`;
+  ).innerHTML = `<i class="${displayIcon(
+    iconSelector
+  )} mt-4 ml-3" id="main-icon"> </i>`;
 }
+
 function displayIcon(iconSelector) {
   if (iconSelector === "Clouds") {
-    return "fas fa-cloud mt-4 ml-3";
+    return "fas fa-cloud";
   }
   if (iconSelector === "Clear") {
-    return "fas fa-sun mt-4 ml-3";
+    return "fas fa-sun";
   }
   if (iconSelector === "Rain") {
-    return "fas fa-cloud-showers-heavy mt-4 ml-3";
+    return "fas fa-cloud-showers-heavy";
   }
   if (iconSelector === "Snow") {
-    return "fas fa-snowflake mt-4 ml-3";
+    return "fas fa-snowflake";
   }
   if (
     iconSelector === "Haze" ||
     iconSelector === "Mist" ||
     iconSelector === "Fog"
   )
-    return "fas fa-smog mt-4 ml-3";
+    return "fas fa-smog";
 }
 
 function showForecast(response) {
   let forecastElement = document.querySelector("#forecast-section");
   forecastElement.innerHTML = null;
   let forecast = null;
+  let iconSelector = null;
 
   for (let index = 0; index < 5; index++) {
     forecast = response.data.list[index];
+    iconSelector = response.data.list[index].weather[0].main;
 
     forecastElement.innerHTML += `
   <div class="card border-0 bg-transparent" style="min-width: 6rem;">
               <div class="card-header bg-transparent text-center border-0">
                 ${formatHours(forecast.dt * 1000)}
               </div>
-
+<div class="text-center border-0 p-0">
+  <p class="card-text" id="forecast-icon">
+    <i class="${displayIcon(iconSelector)}"></i>
+  </p>
+</div>
               <div
                 class="card-footer bg-transparent text-center border-0"
                 id="temp-forecast-01"
