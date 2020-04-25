@@ -78,34 +78,29 @@ function showNewTemperature(response) {
   document.querySelector("#humidity-value").innerHTML = newHumidity;
 
   let iconSelector = response.data.weather[0].main;
+  document.querySelector(
+    "#main-icon-wrapper"
+  ).innerHTML = `<i class="${displayIcon(iconSelector)}" id="main-icon"> </i>`;
+}
+function displayIcon(iconSelector) {
   if (iconSelector === "Clouds") {
-    document
-      .querySelector("#main-icon")
-      .setAttribute("class", "fas fa-cloud mt-4 ml-3");
+    return "fas fa-cloud mt-4 ml-3";
   }
   if (iconSelector === "Clear") {
-    document
-      .querySelector("#main-icon")
-      .setAttribute("class", "fas fa-sun mt-4 ml-3");
+    return "fas fa-sun mt-4 ml-3";
   }
   if (iconSelector === "Rain") {
-    document
-      .querySelector("#main-icon")
-      .setAttribute("class", "fas fa-cloud-showers-heavy mt-4 ml-3");
+    return "fas fa-cloud-showers-heavy mt-4 ml-3";
   }
   if (iconSelector === "Snow") {
-    document
-      .querySelector("#main-icon")
-      .setAttribute("class", "fas fa-snowflake mt-4 ml-3");
+    return "fas fa-snowflake mt-4 ml-3";
   }
   if (
     iconSelector === "Haze" ||
     iconSelector === "Mist" ||
     iconSelector === "Fog"
   )
-    document
-      .querySelector("#main-icon")
-      .setAttribute("class", "fas fa-smog mt-4 ml-3");
+    return "fas fa-smog mt-4 ml-3";
 }
 
 function showForecast(response) {
