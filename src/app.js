@@ -1,9 +1,38 @@
-function displayDate() {
-  let now = new Date();
+function formatHours(timestamp) {
+  let responseReference = new Date(timestamp);
+  let hours = responseReference.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = responseReference.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
 
-  let currentWeekday = document.querySelector("#weekday");
-  currentWeekday.innerHTML = `${days[now.getDay()]}`;
-  let currentHours = document.querySelector("#hours");
+    return `${hours}:${minutes}`;
+  }
+}
+
+function displayDate(timestamp) {
+  let months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  let now = new Date(timestamp);
+  let updateDate = document.querySelector("#date");
+  updateDate.innerHTML = `${months[now.getMonth()]} ${now.getDate()}`;
+
+  let updateHours = document.querySelector("#hours");
   let hours = now.getHours();
   if (hours < 10) {
     hours = `0${hours}`;
@@ -12,7 +41,7 @@ function displayDate() {
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
-  currentHours.innerHTML = `${hours}:${minutes}`;
+  updateHours.innerHTML = `${hours}:${minutes}`;
 }
 
 function handleCityInput(event) {
@@ -32,6 +61,8 @@ function search(apiVariable) {
 }
 
 function showNewTemperature(response) {
+  displayDate(response.data.dt * 1000);
+
   let newCityTemperature = Math.round(response.data.main.temp);
   let newDescription = response.data.weather[0].description;
   let newWind = Math.round(response.data.wind.speed * 3.6);
@@ -77,19 +108,6 @@ function showNewTemperature(response) {
       .setAttribute("class", "fas fa-smog mt-4 ml-3");
 }
 
-function formatForecastHours(timestamp) {
-  let forecastReference = new Date(timestamp);
-  let hours = forecastReference.getHours();
-  if (hours < 10) {
-    hours = `0${hours}`;
-  }
-  let minutes = forecastReference.getMinutes();
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-
-    return `${hours}:${minutes}`;
-  }
-}
 function showForecast(response) {
   let forecastElement = document.querySelector("#forecast-section");
   forecastElement.innerHTML = null;
@@ -101,7 +119,7 @@ function showForecast(response) {
     forecastElement.innerHTML += `
   <div class="card border-0 bg-transparent" style="min-width: 6rem;">
               <div class="card-header bg-transparent text-center border-0">
-                ${formatForecastHours(forecast.dt * 1000)}
+                ${formatHours(forecast.dt * 1000)}
               </div>
 
               <div
@@ -129,20 +147,9 @@ function displayGeoTemperature(position) {
   search(apiVariable);
 }
 
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-
 let changeCityForm = document.querySelector("#city-search-form");
 changeCityForm.addEventListener("submit", handleCityInput);
 
-displayDate();
 search("q=Lisbon");
 
 let linkToCurrent = document.querySelector("#back-link");
