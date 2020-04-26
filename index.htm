@@ -53,11 +53,46 @@
                 </div>
               </div>
               <h3 id="weather-description" class="mt-2"></h3>
-              <p class="parameters mt-4 mb-0">
-                Wind: <span id="wind-value"> </span>km/h
-                <br />
-                Humidity: <span id="humidity-value"> </span>%
-              </p>
+              <div class="row">
+                <div class="col-7">
+                  <p class="parameters mt-4 mb-0">
+                    Wind: <span id="wind-value"> </span>km/h
+                    <br />
+                    Humidity: <span id="humidity-value"> </span>%
+                  </p>
+                </div>
+                <div class="col-5">
+                  <div
+                    class="btn-group btn-group-toggle mt-4"
+                    data-toggle="buttons"
+                    style="border-radius: 4px; height: 25px; padding: 0 auto;"
+                  >
+                    <label
+                      class="btn btn-secondary border-1 active-unit-wrapper"
+                      id="celsius-wrapper"
+                    >
+                      <input
+                        type="radio"
+                        name="options"
+                        id="active-unit"
+                        checked
+                      />
+                      ºC
+                    </label>
+                    <label
+                      class="btn btn-secondary border-1 alternative-unit-wrapper"
+                      id="fahrenheit-wrapper"
+                    >
+                      <input
+                        type="radio"
+                        name="options"
+                        id="alternative-unit"
+                      />
+                      ºF
+                    </label>
+                  </div>
+                </div>
+              </div>
               <p class="my-0 secondary" id="location-day-time">
                 Last updated:
                 <span id="date">Date </span>,

@@ -122,11 +122,11 @@ function showForecast(response) {
               <div class="card-header bg-transparent text-center border-0">
                 ${formatHours(forecast.dt * 1000)}
               </div>
-<div class="text-center border-0 p-0">
-  <p class="card-text" id="forecast-icon">
-    <i class="${displayIcon(iconSelector)}"></i>
-  </p>
-</div>
+              <div class="text-center border-0 p-0">
+              <p class="card-text" id="forecast-icon">
+              <i class="${displayIcon(iconSelector)}"></i>
+              </p>
+              </div>
               <div
                 class="card-footer bg-transparent text-center border-0"
                 id="temp-forecast-01"
@@ -152,6 +152,30 @@ function displayGeoTemperature(position) {
   search(apiVariable);
 }
 
+function backToCelsius() {
+  document
+    .querySelector("#celsius-wrapper")
+    .setAttribute("class", "btn btn-secondary border-1 active-unit-wrapper");
+  document
+    .querySelector("#fahrenheit-wrapper")
+    .setAttribute(
+      "class",
+      "btn btn-secondary border-1 alternative-unit-wrapper"
+    );
+}
+
+function chooseFahrenheit() {
+  document
+    .querySelector("#fahrenheit-wrapper")
+    .setAttribute("class", "btn btn-secondary border-1 active-unit-wrapper");
+  document
+    .querySelector("#celsius-wrapper")
+    .setAttribute(
+      "class",
+      "btn btn-secondary border-1 alternative-unit-wrapper"
+    );
+}
+
 let changeCityForm = document.querySelector("#city-search-form");
 changeCityForm.addEventListener("submit", handleCityInput);
 
@@ -159,3 +183,9 @@ search("q=Lisbon");
 
 let linkToCurrent = document.querySelector("#back-link");
 linkToCurrent.addEventListener("click", backToPosition);
+
+let celsiusButton = document.querySelector("#active-unit");
+celsiusButton.addEventListener("click", backToCelsius);
+
+let fahrenheitButton = document.querySelector("#alternative-unit");
+fahrenheitButton.addEventListener("click", chooseFahrenheit);
