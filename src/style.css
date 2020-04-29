@@ -18,9 +18,19 @@ h1 {
   font-family: ubuntu;
 }
 
+.location {
+  text-transform: uppercase;
+}
+
 h2 {
   font-size: 24px;
   color: #3a403d;
+}
+
+.temperature {
+  font-size: 45px;
+  color: #3a403d;
+  padding-top: 10px;
 }
 
 #weather-description:first-letter {
@@ -34,23 +44,13 @@ h3,
   color: #3a403d;
 }
 
-#units-switch {
-  background-color: #608686;
-}
-
 h3,
 .forecast {
   font-weight: bold;
 }
 
-.location {
-  text-transform: uppercase;
-}
-
-.temperature {
-  font-size: 45px;
-  color: #3a403d;
-  padding-top: 10px;
+#units-switch {
+  background-color: #608686;
 }
 
 .active-unit-wrapper {
@@ -77,20 +77,6 @@ h3,
   font-weight: bold;
 }
 
-.secondary {
-  color: #608686;
-  font-size: 12px;
-}
-
-.credits {
-  color: #608686;
-}
-
-.credits-link {
-  text-decoration: underline;
-  color: #608686;
-}
-
 #main-icon {
   font-size: 60px;
   color: #93e4f9;
@@ -115,4 +101,18 @@ h3,
 
 #button-addon2 {
   background-color: #ffb6b6;
+}
+
+.secondary {
+  color: #608686;
+  font-size: 12px;
+}
+
+.credits {
+  color: #608686;
+}
+
+.credits-link {
+  text-decoration: underline;
+  color: #608686;
 }

@@ -72,11 +72,21 @@ function showNewTemperature(response) {
   let newMainTemperature = document.querySelector("#main-temp");
   let newLocation = document.querySelector("#current-location");
 
-  newMainTemperature.innerHTML = `${newCityTemperature}ºC`;
   newLocation.innerHTML = response.data.name;
   document.querySelector("#weather-description").innerHTML = newDescription;
   document.querySelector("#wind-value").innerHTML = newWind;
   document.querySelector("#humidity-value").innerHTML = newHumidity;
+
+  let defaultUnit = document.querySelector("#celsius-wrapper");
+  if (defaultUnit.classList.contains("active-unit-wrapper")) {
+    newMainTemperature.innerHTML = `<span id="temperature-value">${newCityTemperature}</span>ºC`;
+    previousValue = `${newCityTemperature}`;
+  } else {
+    newMainTemperature.innerHTML = `<span id="temperature-value">${Math.round(
+      newCityTemperature * 1.8 + 32
+    )}</span>ºF`;
+    previousValue = `${Math.round(newCityTemperature * 1.8 + 32)}`;
+  }
 
   let iconSelector = response.data.weather[0].main;
   document.querySelector(
@@ -93,7 +103,7 @@ function displayIcon(iconSelector) {
   if (iconSelector === "Clear") {
     return "fas fa-sun";
   }
-  if (iconSelector === "Rain") {
+  if (iconSelector === "Rain" || iconSelector === "Drizzle") {
     return "fas fa-cloud-showers-heavy";
   }
   if (iconSelector === "Snow") {
@@ -162,6 +172,13 @@ function backToCelsius() {
       "class",
       "btn btn-secondary border-1 alternative-unit-wrapper"
     );
+  let celsiusButton = document.querySelector("#active-unit");
+  celsiusButton.removeEventListener("click", backToCelsius);
+  fahrenheitButton.addEventListener("click", chooseFahrenheit);
+
+  let celsiusValue = `${Math.round(((previousValue - 32) * 5) / 9)}`;
+  document.querySelector("#main-temp").innerHTML = `${celsiusValue}ºC`;
+  previousValue = celsiusValue;
 }
 
 function chooseFahrenheit() {
@@ -174,18 +191,24 @@ function chooseFahrenheit() {
       "class",
       "btn btn-secondary border-1 alternative-unit-wrapper"
     );
+  fahrenheitButton.removeEventListener("click", chooseFahrenheit);
+  let celsiusButton = document.querySelector("#active-unit");
+  celsiusButton.addEventListener("click", backToCelsius);
+
+  let fahrenheitValue = `${Math.round(previousValue * 1.8 + 32)}`;
+  document.querySelector("#main-temp").innerHTML = `${fahrenheitValue}ºF`;
+  previousValue = fahrenheitValue;
 }
+
+let previousValue = null;
 
 let changeCityForm = document.querySelector("#city-search-form");
 changeCityForm.addEventListener("submit", handleCityInput);
 
-search("q=Lisbon");
-
 let linkToCurrent = document.querySelector("#back-link");
 linkToCurrent.addEventListener("click", backToPosition);
 
-let celsiusButton = document.querySelector("#active-unit");
-celsiusButton.addEventListener("click", backToCelsius);
-
 let fahrenheitButton = document.querySelector("#alternative-unit");
 fahrenheitButton.addEventListener("click", chooseFahrenheit);
+
+search("q=Lisbon");
