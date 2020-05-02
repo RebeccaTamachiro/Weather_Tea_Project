@@ -80,23 +80,25 @@ function showNewTemperature(response) {
   let defaultUnit = document.querySelector("#celsius-wrapper");
   if (defaultUnit.classList.contains("active-unit-wrapper")) {
     newMainTemperature.innerHTML = `<span id="temperature-value">${newCityTemperature}</span>ºC`;
-    previousValue = `${newCityTemperature}`;
+    previousTemperatureValue = `${newCityTemperature}`;
   } else {
     newMainTemperature.innerHTML = `<span id="temperature-value">${Math.round(
       newCityTemperature * 1.8 + 32
     )}</span>ºF`;
-    previousValue = `${Math.round(newCityTemperature * 1.8 + 32)}`;
+    previousTemperatureValue = `${Math.round(newCityTemperature * 1.8 + 32)}`;
   }
 
   let iconSelector = response.data.weather[0].main;
   document.querySelector(
     "#main-icon-wrapper"
-  ).innerHTML = `<i class="${displayIcon(
+  ).innerHTML = `<i class="${updateIcon(
     iconSelector
   )} mt-4 ml-3" id="main-icon"> </i>`;
+
+  updateTeaTip(newCityTemperature);
 }
 
-function displayIcon(iconSelector) {
+function updateIcon(iconSelector) {
   if (iconSelector === "Clouds") {
     return "fas fa-cloud";
   }
@@ -117,6 +119,25 @@ function displayIcon(iconSelector) {
     return "fas fa-smog";
 }
 
+function updateTeaTip(newCityTemperature) {
+  let teaTip = document.querySelector("#tea-tip");
+  if (newCityTemperature < 10) {
+    teaTip.innerHTML = `<p class="card-text"> 
+    👉 Why not warm yourself up with some 
+    <span id="tea-flavour"> spiced apple tea </span> OR...</p>`;
+  }
+  if (newCityTemperature > 20) {
+    teaTip.innerHTML = `<p class="card-text"> 
+    👉 Great weather for some 
+    <span id="tea-flavour"> iced matcha latte </span> OR...</p>`;
+  }
+  if (newCityTemperature > 10 && newCityTemperature < 20) {
+    teaTip.innerHTML = `<p class="card-text"> 
+    👉 Great weather for some 
+    <span id="tea-flavour"> lemon verbena tea </span> OR...</p>`;
+  }
+}
+
 function showForecast(response) {
   let forecastElement = document.querySelector("#forecast-section");
   forecastElement.innerHTML = null;
@@ -134,7 +155,7 @@ function showForecast(response) {
               </div>
               <div class="text-center border-0 p-0">
               <p class="card-text" id="forecast-icon">
-              <i class="${displayIcon(iconSelector)}"></i>
+              <i class="${updateIcon(iconSelector)}"></i>
               </p>
               </div>
               <div
@@ -176,9 +197,9 @@ function backToCelsius() {
   celsiusButton.removeEventListener("click", backToCelsius);
   fahrenheitButton.addEventListener("click", chooseFahrenheit);
 
-  let celsiusValue = `${Math.round(((previousValue - 32) * 5) / 9)}`;
+  let celsiusValue = `${Math.round(((previousTemperatureValue - 32) * 5) / 9)}`;
   document.querySelector("#main-temp").innerHTML = `${celsiusValue}ºC`;
-  previousValue = celsiusValue;
+  previousTemperatureValue = celsiusValue;
 }
 
 function chooseFahrenheit() {
@@ -195,12 +216,12 @@ function chooseFahrenheit() {
   let celsiusButton = document.querySelector("#active-unit");
   celsiusButton.addEventListener("click", backToCelsius);
 
-  let fahrenheitValue = `${Math.round(previousValue * 1.8 + 32)}`;
+  let fahrenheitValue = `${Math.round(previousTemperatureValue * 1.8 + 32)}`;
   document.querySelector("#main-temp").innerHTML = `${fahrenheitValue}ºF`;
-  previousValue = fahrenheitValue;
+  previousTemperatureValue = fahrenheitValue;
 }
 
-let previousValue = null;
+let previousTemperatureValue = null;
 
 let changeCityForm = document.querySelector("#city-search-form");
 changeCityForm.addEventListener("submit", handleCityInput);
