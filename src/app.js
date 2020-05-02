@@ -121,20 +121,81 @@ function updateIcon(iconSelector) {
 
 function updateTeaTip(newCityTemperature) {
   let teaTip = document.querySelector("#tea-tip");
-  if (newCityTemperature < 10) {
-    teaTip.innerHTML = `<p class="card-text"> 
+
+  let coldWeatherTeas = [
+    `<p class="card-text"> 
     👉 Why not warm yourself up with some 
-    <span id="tea-flavour"> spiced apple tea </span> OR...</p>`;
+    <span id="tea-flavour"> spiced apple tea </span> OR...</p>`,
+    `<p class="card-text"> 
+    👉 Get yourself a blanket and some 
+    <span id="tea-flavour"> lemon ginger tea </span> OR...</p>`,
+    `<p class="card-text"> 
+    👉 Enjoy colder days with a nice cup of hot 
+    <span id="tea-flavour"> chai latte </span> OR...</p>`,
+    `<p class="card-text"> 
+    👉 Why not warm things up with a hot 
+    <span id="tea-flavour"> raspberry tea </span> OR...</p>`,
+    `<p class="card-text"> 
+    👉 Get yourself a blanket and some 
+    <span id="tea-flavour"> ginger tumeric tea </span> OR...</p>`,
+    `<p class="card-text"> 
+    👉 Enjoy colder days with some 
+    <span id="tea-flavour"> spiced orange tea </span> OR...</p>`,
+  ];
+
+  let hotWeatherTeas = [
+    `<p class="card-text"> 
+    👉 Great weather to enjoy some 
+    <span id="tea-flavour"> iced matcha latte </span> OR...</p>`,
+    `<p class="card-text"> 
+    👉 Why not try some refreshing 
+    <span id="tea-flavour"> honeydew bubble tea </span> OR...</p>`,
+    `<p class="card-text"> 
+    👉 Nice weather to have a glass of classic 
+    <span id="tea-flavour"> lemon iced tea </span> OR...</p>`,
+    `<p class="card-text"> 
+    👉 Good weather to try and taste some
+    <span id="tea-flavour"> iced chai latte </span> OR...</p>`,
+    `<p class="card-text"> 
+    👉 Refresh yourself and go healthy with some nice 
+    <span id="tea-flavour"> green tea </span> OR...</p>`,
+    `<p class="card-text"> 
+    👉 Great weather for some good old 
+    <span id="tea-flavour"> peach iced tea </span> OR...</p>`,
+  ];
+
+  let neutralWeatherTeas = [
+    `<p class="card-text"> 
+    👉 Great weather for some nice
+    <span id="tea-flavour"> lemon-verbena tea </span> OR...</p>`,
+    `<p class="card-text"> 
+    👉 Great weather to have some warm
+    <span id="tea-flavour"> chamomile tea </span> OR...</p>`,
+    `<p class="card-text"> 
+    👉 Why not try some calming warm
+    <span id="tea-flavour"> lemongrass tea </span> OR...</p>`,
+    `<p class="card-text"> 
+    👉 It's always a good weather for some
+    <span id="tea-flavour"> peppermint tea </span> OR...</p>`,
+    `<p class="card-text"> 
+    👉 Great weather for either iced or regular
+    <span id="tea-flavour"> golden milk latte </span> OR...</p>`,
+    `<p class="card-text"> 
+    👉 Why not vary a little with some
+    <span id="tea-flavour"> rose milk tea </span> OR...</p>`,
+  ];
+
+  if (newCityTemperature < 10) {
+    teaTip.innerHTML =
+      coldWeatherTeas[Math.floor(Math.random() * coldWeatherTeas.length)];
   }
   if (newCityTemperature > 20) {
-    teaTip.innerHTML = `<p class="card-text"> 
-    👉 Great weather for some 
-    <span id="tea-flavour"> iced matcha latte </span> OR...</p>`;
+    teaTip.innerHTML =
+      hotWeatherTeas[Math.floor(Math.random() * hotWeatherTeas.length)];
   }
   if (newCityTemperature > 10 && newCityTemperature < 20) {
-    teaTip.innerHTML = `<p class="card-text"> 
-    👉 Great weather for some 
-    <span id="tea-flavour"> lemon verbena tea </span> OR...</p>`;
+    teaTip.innerHTML =
+      neutralWeatherTeas[Math.floor(Math.random() * neutralWeatherTeas.length)];
   }
 }
 
