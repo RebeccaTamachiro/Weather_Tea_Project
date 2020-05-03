@@ -77,7 +77,6 @@ function showNewTemperature(response) {
   document.querySelector("#wind-value").innerHTML = newWind;
   document.querySelector("#humidity-value").innerHTML = newHumidity;
 
-  let defaultUnit = document.querySelector("#celsius-wrapper");
   if (defaultUnit.classList.contains("active-unit-wrapper")) {
     newMainTemperature.innerHTML = `<span id="temperature-value">${newCityTemperature}</span>ºC`;
     previousTemperatureValue = `${newCityTemperature}`;
@@ -208,8 +207,9 @@ function showForecast(response) {
   for (let index = 0; index < 5; index++) {
     forecast = response.data.list[index];
     iconSelector = response.data.list[index].weather[0].main;
-
-    forecastElement.innerHTML += `
+    if (defaultUnit.classList.contains("active-unit-wrapper")) {
+      previousForecastValue = Math.round(forecast.main.temp);
+      forecastElement.innerHTML += `
   <div class="card border-0 bg-transparent" style="min-width: 6rem;">
               <div class="card-header bg-transparent text-center border-0">
                 ${formatHours(forecast.dt * 1000)}
@@ -223,11 +223,29 @@ function showForecast(response) {
                 class="card-footer bg-transparent text-center border-0"
                 id="temp-forecast-01"
               >
-                ${Math.round(forecast.main.temp_max)}º|${Math.round(
-      forecast.main.temp_min
-    )}º
+                ${previousForecastValue}ºC
               </div>
             </div>`;
+    } else {
+      previousForecastValue = Math.round(forecast.main.temp * 1.8 + 32);
+      forecastElement.innerHTML += `
+  <div class="card border-0 bg-transparent" style="min-width: 6rem;">
+              <div class="card-header bg-transparent text-center border-0">
+                ${formatHours(forecast.dt * 1000)}
+              </div>
+              <div class="text-center border-0 p-0">
+              <p class="card-text" id="forecast-icon">
+              <i class="${updateIcon(iconSelector)}"></i>
+              </p>
+              </div>
+              <div
+                class="card-footer bg-transparent text-center border-0"
+                id="temp-forecast-01"
+              >
+                ${previousForecastValue}ºF
+              </div>
+            </div>`;
+    }
   }
 }
 
@@ -280,9 +298,19 @@ function chooseFahrenheit() {
   let fahrenheitValue = `${Math.round(previousTemperatureValue * 1.8 + 32)}`;
   document.querySelector("#main-temp").innerHTML = `${fahrenheitValue}ºF`;
   previousTemperatureValue = fahrenheitValue;
+
+  //let fahrenheitForecast = `${Math.round(previousForecastValue * 1.8 + 32)}`;
+  //document.querySelectorAll(
+  //  "#temp-forecast-01"
+  //).innerHTML = `${fahrenheitForecast}ºF`;
+  //previousForecastValue = fahrenheitForecast;
 }
 
 let previousTemperatureValue = null;
+
+let previousForecastValue = null;
+
+let defaultUnit = document.querySelector("#celsius-wrapper");
 
 let changeCityForm = document.querySelector("#city-search-form");
 changeCityForm.addEventListener("submit", handleCityInput);
