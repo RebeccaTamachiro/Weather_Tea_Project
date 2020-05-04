@@ -84,7 +84,9 @@ h3,
 
 .fa-cloud,
 .fa-sun,
-.fa-cloud-showers-heavy {
+.fa-cloud-showers-heavy,
+.fa-snowflake,
+.fa-smog {
   font-size: 30px;
   color: #93e4f9;
   text-shadow: 2px 2px 3px #c8c8c8;
