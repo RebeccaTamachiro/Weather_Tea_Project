@@ -79,12 +79,10 @@ function showNewTemperature(response) {
 
   if (defaultUnit.classList.contains("active-unit-wrapper")) {
     newMainTemperature.innerHTML = `<span id="temperature-value">${newCityTemperature}</span>ºC`;
-    previousTemperatureValue = `${newCityTemperature}`;
   } else {
     newMainTemperature.innerHTML = `<span id="temperature-value">${Math.round(
       newCityTemperature * 1.8 + 32
     )}</span>ºF`;
-    previousTemperatureValue = `${Math.round(newCityTemperature * 1.8 + 32)}`;
   }
 
   let iconSelector = response.data.weather[0].main;
@@ -192,7 +190,7 @@ function updateTeaTip(newCityTemperature) {
     teaTip.innerHTML =
       hotWeatherTeas[Math.floor(Math.random() * hotWeatherTeas.length)];
   }
-  if (newCityTemperature > 10 && newCityTemperature < 20) {
+  if (newCityTemperature >= 10 && newCityTemperature <= 20) {
     teaTip.innerHTML =
       neutralWeatherTeas[Math.floor(Math.random() * neutralWeatherTeas.length)];
   }
@@ -208,7 +206,6 @@ function showForecast(response) {
     forecast = response.data.list[index];
     iconSelector = response.data.list[index].weather[0].main;
     if (defaultUnit.classList.contains("active-unit-wrapper")) {
-      previousForecastValue = Math.round(forecast.main.temp);
       forecastElement.innerHTML += `
   <div class="card border-0 bg-transparent" style="min-width: 6rem;">
               <div class="card-header bg-transparent text-center border-0">
@@ -223,11 +220,10 @@ function showForecast(response) {
                 class="card-footer bg-transparent text-center border-0"
                 id="temp-forecast-01"
               >
-                ${previousForecastValue}ºC
+                ${Math.round(forecast.main.temp)}ºC
               </div>
             </div>`;
     } else {
-      previousForecastValue = Math.round(forecast.main.temp * 1.8 + 32);
       forecastElement.innerHTML += `
   <div class="card border-0 bg-transparent" style="min-width: 6rem;">
               <div class="card-header bg-transparent text-center border-0">
@@ -242,7 +238,7 @@ function showForecast(response) {
                 class="card-footer bg-transparent text-center border-0"
                 id="temp-forecast-01"
               >
-                ${previousForecastValue}ºF
+                ${Math.round(forecast.main.temp * 1.8 + 32)}ºF
               </div>
             </div>`;
     }
@@ -276,9 +272,8 @@ function backToCelsius() {
   celsiusButton.removeEventListener("click", backToCelsius);
   fahrenheitButton.addEventListener("click", chooseFahrenheit);
 
-  let celsiusValue = `${Math.round(((previousTemperatureValue - 32) * 5) / 9)}`;
-  document.querySelector("#main-temp").innerHTML = `${celsiusValue}ºC`;
-  previousTemperatureValue = celsiusValue;
+  let currentLocation = document.querySelector("#current-location");
+  search(`q=${currentLocation.innerHTML}`);
 }
 
 function chooseFahrenheit() {
@@ -295,20 +290,9 @@ function chooseFahrenheit() {
   let celsiusButton = document.querySelector("#active-unit");
   celsiusButton.addEventListener("click", backToCelsius);
 
-  let fahrenheitValue = `${Math.round(previousTemperatureValue * 1.8 + 32)}`;
-  document.querySelector("#main-temp").innerHTML = `${fahrenheitValue}ºF`;
-  previousTemperatureValue = fahrenheitValue;
-
-  //let fahrenheitForecast = `${Math.round(previousForecastValue * 1.8 + 32)}`;
-  //document.querySelectorAll(
-  //  "#temp-forecast-01"
-  //).innerHTML = `${fahrenheitForecast}ºF`;
-  //previousForecastValue = fahrenheitForecast;
+  let currentLocation = document.querySelector("#current-location");
+  search(`q=${currentLocation.innerHTML}`);
 }
-
-let previousTemperatureValue = null;
-
-let previousForecastValue = null;
 
 let defaultUnit = document.querySelector("#celsius-wrapper");
 
