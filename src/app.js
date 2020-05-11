@@ -134,7 +134,7 @@ function updateTeaTip(newCityTemperature) {
     <span id="tea-flavour"> raspberry tea </span> OR...</p>`,
     `<p class="card-text"> 
     👉 Get yourself a blanket and some 
-    <span id="tea-flavour"> ginger tumeric tea </span> OR...</p>`,
+    <span id="tea-flavour"> ginger turmeric tea </span> OR...</p>`,
     `<p class="card-text"> 
     👉 Enjoy colder days with some 
     <span id="tea-flavour"> spiced orange tea </span> OR...</p>`,
