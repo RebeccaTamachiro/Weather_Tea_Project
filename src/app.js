@@ -53,7 +53,7 @@ function handleCityInput(event) {
 }
 
 function search(apiVariable) {
-  let apiKey = "461572920dce0becb1819d70275340e2";
+  let apiKey = "e453829d4776c3346e4f136bba17280a";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?${apiVariable}&units=metric`;
   axios.get(`${apiUrl}&appid=${apiKey}`).then(showNewTemperature);
 
